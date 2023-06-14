@@ -1,4 +1,4 @@
-package pro.shivanshtariyal.recipeapp
+package pro.shivanshtariyal.recipeapp.view.activities
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import pro.shivanshtariyal.recipeapp.R
 import pro.shivanshtariyal.recipeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

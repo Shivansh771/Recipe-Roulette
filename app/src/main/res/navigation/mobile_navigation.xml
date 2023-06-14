@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="pro.shivanshtariyal.recipeapp.ui.home.HomeFragment"
+        android:name="pro.shivanshtariyal.recipeapp.view.fragments.AllDishesFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_all_dishes" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="pro.shivanshtariyal.recipeapp.ui.dashboard.DashboardFragment"
+        android:name="pro.shivanshtariyal.recipeapp.view.fragments.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="pro.shivanshtariyal.recipeapp.ui.notifications.NotificationsFragment"
+        android:name="pro.shivanshtariyal.recipeapp.view.fragments.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
