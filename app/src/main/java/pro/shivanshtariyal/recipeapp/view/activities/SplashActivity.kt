@@ -1,4 +1,4 @@
-package pro.shivanshtariyal.recipeapp
+package pro.shivanshtariyal.recipeapp.view.activities
 
 import android.content.Intent
 import android.os.Build
@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import pro.shivanshtariyal.recipeapp.R
 import pro.shivanshtariyal.recipeapp.databinding.ActivitySplashBinding
 
 
@@ -36,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
             override fun onAnimationEnd(animation: Animation?) {
                 Handler(Looper.getMainLooper()).postDelayed(
                     {
-                        startActivity(Intent(this@SplashActivity,MainActivity::class.java))
+                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
                         finish()
                     },1000
                 )

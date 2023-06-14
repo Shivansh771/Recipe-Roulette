@@ -1,4 +1,4 @@
-package pro.shivanshtariyal.recipeapp.ui.dashboard
+package pro.shivanshtariyal.recipeapp.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
