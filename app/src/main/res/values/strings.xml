@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="splash_screen_title">Fav Dish</string>
+    <string name="splash_screen_title">Recipe App</string>
     <string name="action_add_dish">Add Dish</string>
     <string name="image_contentDescription">image</string>
     <string name="lbl_title">Title</string>
@@ -19,4 +19,14 @@
     <string name="lbl_camera">Camera</string>
     <string name="lbl_gallery">Gallery</string>
     <string name="title_select_image">Select Image</string>
+    <string name="title_select_dish_type">Select Dish Type</string>
+    <string name="title_select_dish_cooking_time">Select Dish Cooking Time</string>
+    <string name="title_select_dish_category">Select the Dish Category</string>
+    <string name="err_msg_image">Select dish image</string>
+    <string name="err_msg_title">Please enter title for the dish</string>
+    <string name="err_msg_type">Please select the type of the dish</string>
+    <string name="err_msg_category">Please select a category of the dish</string>
+    <string name="err_msg_ingredients">Please enter the ingredients of the dish</string>
+    <string name="err_msg_time">Please enter the time to cook</string>
+    <string name="err_msg_directions">Please enter the directions to cook</string>
 </resources>
