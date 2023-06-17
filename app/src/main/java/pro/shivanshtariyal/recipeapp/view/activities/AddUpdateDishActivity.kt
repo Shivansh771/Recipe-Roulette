@@ -18,6 +18,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -37,11 +38,16 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
 import pro.shivanshtariyal.recipeapp.R
+import pro.shivanshtariyal.recipeapp.application.FavDishApplication
 import pro.shivanshtariyal.recipeapp.databinding.ActivityAddUpdateDishBinding
 import pro.shivanshtariyal.recipeapp.databinding.DialogCustomImageSelectionBinding
 import pro.shivanshtariyal.recipeapp.databinding.DialogCustomListBinding
+import pro.shivanshtariyal.recipeapp.models.database.FavDishRepository
+import pro.shivanshtariyal.recipeapp.models.entities.FavDish
 import pro.shivanshtariyal.recipeapp.utils.Constants
 import pro.shivanshtariyal.recipeapp.view.adapter.CustomListAdapter
+import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModel
+import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModelFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -53,6 +59,10 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
     private var mImagePath:String=""
 
     private lateinit var mCustomListDialog:Dialog
+
+    private val mFavDishViewModel:FavDishViewModel by viewModels{
+        FavDishViewModelFactory((application as FavDishApplication).repository)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
          mBinding=ActivityAddUpdateDishBinding.inflate(layoutInflater)
@@ -119,7 +129,25 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
                     TextUtils.isEmpty(mImagePath)->{
                         Toast.makeText(this@AddUpdateDishActivity,resources.getString(R.string.err_msg_directions),Toast.LENGTH_SHORT).show()
                     }else->{
-                        Toast.makeText(this@AddUpdateDishActivity,"All entries are valid",Toast.LENGTH_SHORT).show()
+
+                        val favDishDetails: FavDish =FavDish(
+                            mImagePath,
+                            Constants.DISH_IMAGE_SOURCE_LOCAL,
+                            title,
+                            type,
+                            category,
+                            ingredients,
+                            cookingTimeinMinutes,
+                            cookingDirection,
+                            false
+                        )
+                    mFavDishViewModel.insert(favDishDetails)
+                    Toast.makeText(
+                        this@AddUpdateDishActivity,
+                        "You have successfully added your favorite dish",
+                        Toast.LENGTH_SHORT).show()
+                    Log.e("Insertion","success")
+                    finish()
                     }
 
 
