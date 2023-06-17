@@ -7,21 +7,34 @@ import androidx.room.RoomDatabase
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
 
 @Database(entities = [FavDish::class], version = 1)
-abstract class FavDishRoomDatabase:RoomDatabase() {
+abstract class FavDishRoomDatabase : RoomDatabase() {
 
-    companion object{
+    // TODO Step 4: Create abstract function that we can access from the application class to initialize the repository class.
+    // START
+    abstract fun favDishDao(): FavDishDao
+    // END
+
+    companion object {
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
         @Volatile
-        private var INSTANCE:FavDishRoomDatabase?=null
-    }
-    fun getDatabase(context:Context): FavDishRoomDatabase {
-        return INSTANCE ?: synchronized(this){
-            val instance= Room.databaseBuilder(
-                context.applicationContext,
-                FavDishRoomDatabase::class.java,
-                "fav_dish_database"
-            ).fallbackToDestructiveMigration().build()
-            INSTANCE=instance
-            instance
+        private var INSTANCE: FavDishRoomDatabase? = null
+
+        fun getDatabase(context: Context): FavDishRoomDatabase {
+            // if the INSTANCE is not null, then return it,
+            // if it is, then create the database
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    FavDishRoomDatabase::class.java,
+                    "fav_dish_database"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                // return instance
+                instance
+            }
         }
     }
 }
