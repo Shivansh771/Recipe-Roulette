@@ -1,8 +1,6 @@
 package pro.shivanshtariyal.recipeapp.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import pro.shivanshtariyal.recipeapp.models.database.FavDishRepository
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
@@ -13,6 +11,7 @@ class FavDishViewModel(private val repository: FavDishRepository):ViewModel() {
 
         repository.insertFavDishData(dish)
     }
+    val allDishesList:LiveData<List<FavDish>> = repository.allDishesList.asLiveData()
 
 }
 
@@ -22,6 +21,6 @@ class FavDishViewModelFactory(private val repository: FavDishRepository):ViewMod
             @Suppress("UNCHECKED_CAST")
             return FavDishViewModel(repository) as T
     }
-        throw java.lang.IllegalArgumentException("Unknown Viewmodel Class")
+        throw java.lang.IllegalArgumentException("Unknown ViewModel Class")
     }
 }
