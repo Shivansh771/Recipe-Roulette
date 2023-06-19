@@ -28,13 +28,11 @@ import pro.shivanshtariyal.recipeapp.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
     private lateinit var mBinding:FragmentAllDishesBinding
-    private var _binding: FragmentAllDishesBinding? = null
     private val mFavDishViewModel:FavDishViewModel by viewModels{
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,9 +52,7 @@ class AllDishesFragment : Fragment() {
         mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){
             dishes->
                 dishes.let {
-                    for(item in it){
-                        Log.i("Dish Title","${item.id}:: ${item.title}")
-                    }
+
                     if(it.isNotEmpty()){
                         mBinding.rvDishesList.visibility=View.VISIBLE
                         mBinding.tvNoDishesAddedYet.visibility=View.GONE
@@ -77,11 +73,11 @@ class AllDishesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_all_dishes,menu)
+
 
 
         super.onCreateOptionsMenu(menu, inflater)

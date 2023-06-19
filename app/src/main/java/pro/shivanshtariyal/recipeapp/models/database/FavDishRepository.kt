@@ -2,15 +2,22 @@ package pro.shivanshtariyal.recipeapp.models.database
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
 
 class FavDishRepository(private val favDishDao: FavDishDao) {
 
+    /**
+     * By default Room runs suspend queries off the main thread, therefore, we don't need to
+     * implement anything else to ensure we're not doing long running database work
+     * off the main thread.
+     */
     @WorkerThread
-    suspend fun insertFavDishData(favDish: FavDish){
-       favDishDao.insertFavDishDetails(favDish)
+    suspend fun insertFavDishData(favDish: FavDish) {
+        favDishDao.insertFavDishDetails(favDish)
     }
 
-
-    val allDishesList:Flow<List<FavDish>> = favDishDao.getAllDishesList()
+    // Room executes all queries on a separate thread.
+    // Observed Flow will notify the observer when the data has changed.
+    val allDishesList: Flow<List<FavDish>> = favDishDao.getAllDishesList()
 }
