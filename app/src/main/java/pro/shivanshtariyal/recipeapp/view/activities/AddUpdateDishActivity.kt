@@ -52,7 +52,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
-import java.util.UUID
+import java.util.*
 
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var mBinding:ActivityAddUpdateDishBinding
@@ -68,12 +68,12 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
          mBinding=ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        mBinding.ivAddDishImage.setOnClickListener(this)
+        mBinding.ivAddDishImage.setOnClickListener(this@AddUpdateDishActivity)
         setupActionBar()
-        mBinding.etType.setOnClickListener(this)
-        mBinding.etCategory.setOnClickListener(this)
-        mBinding.etCookingTime.setOnClickListener(this)
-        mBinding.btnAddDish.setOnClickListener(this)
+        mBinding.etType.setOnClickListener(this@AddUpdateDishActivity)
+        mBinding.etCategory.setOnClickListener(this@AddUpdateDishActivity)
+        mBinding.etCookingTime.setOnClickListener(this@AddUpdateDishActivity)
+        mBinding.btnAddDish.setOnClickListener(this@AddUpdateDishActivity)
 
     }
 
@@ -269,7 +269,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
                     mBinding.ivAddDishImage.setImageDrawable(
                         ContextCompat.getDrawable(
                             this@AddUpdateDishActivity,
-                            com.google.android.material.R.drawable.material_ic_edit_black_24dp
+                            R.drawable.ic_baseline_edit_24
                         )
                     )
                 }
@@ -420,7 +420,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun customItemsListDialog(title:String,itemsList:List<String>,selection:String){
-        mCustomListDialog=Dialog(this)
+        mCustomListDialog=Dialog(this@AddUpdateDishActivity)
         val binding:DialogCustomListBinding= DialogCustomListBinding.inflate(layoutInflater)
         mCustomListDialog.setContentView(binding.root)
         binding.tvTitle.text=title
