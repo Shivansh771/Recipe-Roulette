@@ -11,13 +11,10 @@ import androidx.core.content.res.ColorStateListInflaterCompat.inflate
 import androidx.core.graphics.drawable.DrawableCompat.inflate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import pro.shivanshtariyal.recipeapp.R
 import pro.shivanshtariyal.recipeapp.application.FavDishApplication
 import pro.shivanshtariyal.recipeapp.databinding.FragmentAllDishesBinding
-import pro.shivanshtariyal.recipeapp.databinding.FragmentAllDishesBinding.inflate
-import pro.shivanshtariyal.recipeapp.databinding.FragmentDashboardBinding.inflate
 import pro.shivanshtariyal.recipeapp.view.activities.AddUpdateDishActivity
 import pro.shivanshtariyal.recipeapp.view.adapter.FavDishAdapter
 import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModel

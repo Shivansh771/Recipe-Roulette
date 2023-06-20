@@ -1,16 +1,19 @@
 package pro.shivanshtariyal.recipeapp.viewmodel
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pro.shivanshtariyal.recipeapp.models.database.FavDishRepository
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
 
 class FavDishViewModel(private val repository: FavDishRepository):ViewModel() {
 
     fun insert(dish:FavDish)=viewModelScope.launch {
+        withContext(Dispatchers.IO){
 
         repository.insertFavDishData(dish)
-    }
+    }}
     val allDishesList:LiveData<List<FavDish>> = repository.allDishesList.asLiveData()
 
 }
