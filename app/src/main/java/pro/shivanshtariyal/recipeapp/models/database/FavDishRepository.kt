@@ -2,7 +2,6 @@ package pro.shivanshtariyal.recipeapp.models.database
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
-import androidx.lifecycle.LiveData
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
 
 class FavDishRepository(private val favDishDao: FavDishDao) {
@@ -20,4 +19,16 @@ class FavDishRepository(private val favDishDao: FavDishDao) {
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
     val allDishesList: Flow<List<FavDish>> = favDishDao.getAllDishesList()
+
+    @WorkerThread
+    suspend fun updateFaveDishData(favDish: FavDish){
+        favDishDao.updateFaveDishDetails(favDish)
+    }
+    @WorkerThread
+     suspend fun deleteFavDishData(favDish: FavDish){
+        favDishDao.deleteFavDishDetails(favDish)
+    }
+
+    val favoriteDishes: Flow<List<FavDish>> =favDishDao.getFavoriteDishesList()
 }
+
