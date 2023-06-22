@@ -1,34 +1,34 @@
 package pro.shivanshtariyal.recipeapp.view.fragments
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.View.inflate
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.resources.Compatibility.Api21Impl.inflate
-import androidx.core.content.res.ColorStateListInflaterCompat.inflate
-import androidx.core.graphics.drawable.DrawableCompat.inflate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import pro.shivanshtariyal.recipeapp.R
 import pro.shivanshtariyal.recipeapp.application.FavDishApplication
+import pro.shivanshtariyal.recipeapp.databinding.DialogCustomListBinding
 import pro.shivanshtariyal.recipeapp.databinding.FragmentAllDishesBinding
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
+import pro.shivanshtariyal.recipeapp.utils.Constants
 import pro.shivanshtariyal.recipeapp.view.activities.AddUpdateDishActivity
 import pro.shivanshtariyal.recipeapp.view.activities.MainActivity
+import pro.shivanshtariyal.recipeapp.view.adapter.CustomListAdapter
 import pro.shivanshtariyal.recipeapp.view.adapter.FavDishAdapter
 import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModel
 import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModelFactory
 
-
-import pro.shivanshtariyal.recipeapp.viewmodel.HomeViewModel
-
 class AllDishesFragment : Fragment() {
     private lateinit var mBinding:FragmentAllDishesBinding
+
+    private lateinit var mFavDishAdapter: FavDishAdapter
+    private lateinit var mCustomListDialog:Dialog
     private val mFavDishViewModel:FavDishViewModel by viewModels{
         FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
     }
@@ -48,8 +48,9 @@ class AllDishesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding.rvDishesList.layoutManager=GridLayoutManager(requireActivity(),2)
-        val favDishAdapter=FavDishAdapter(this@AllDishesFragment)
-        mBinding.rvDishesList.adapter=favDishAdapter
+        mFavDishAdapter=FavDishAdapter(this@AllDishesFragment)
+
+        mBinding.rvDishesList.adapter=mFavDishAdapter
         mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){
             dishes->
                 dishes.let {
@@ -58,7 +59,7 @@ class AllDishesFragment : Fragment() {
                         mBinding.rvDishesList.visibility=View.VISIBLE
                         mBinding.tvNoDishesAddedYet.visibility=View.GONE
 
-                        favDishAdapter.dishesList(it)
+                        mFavDishAdapter.dishesList(it)
                     }else{
                         mBinding.rvDishesList.visibility=View.GONE
                         mBinding.tvNoDishesAddedYet.visibility=View.VISIBLE
@@ -101,6 +102,20 @@ class AllDishesFragment : Fragment() {
             (activity as MainActivity?)!!.showBottomNavigationView()
         }
     }
+
+    private fun filterDishesListDialog(){
+        mCustomListDialog=Dialog(requireActivity())
+        val binding:DialogCustomListBinding= DialogCustomListBinding.inflate(layoutInflater)
+
+        mCustomListDialog.setContentView(binding.root)
+        binding.tvTitle.text=resources.getString(R.string.title_select_item_to_filter)
+        val dishTypes=Constants.dishTypes()
+        dishTypes.add(0,Constants.ALL_ITEMS)
+        binding.rvList.layoutManager=LinearLayoutManager(requireActivity())
+        val adapter=CustomListAdapter(requireActivity(),this@AllDishesFragment,dishTypes,Constants.FILTER_SELECTION)
+        binding.rvList.adapter=adapter
+        mCustomListDialog.show()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -124,8 +139,53 @@ class AllDishesFragment : Fragment() {
                 startActivity(Intent(requireActivity(),AddUpdateDishActivity::class.java))
                 return true
             }
+            R.id.action_filter_dishes->{
+                filterDishesListDialog()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
+
+    }
+
+    fun filterSelection(filterItemSelection:String){
+        mCustomListDialog.dismiss()
+        Log.i("Filter Selection",filterItemSelection)
+        if(filterItemSelection==Constants.ALL_ITEMS){
+            mFavDishViewModel.allDishesList.observe(viewLifecycleOwner){            dishes->
+                dishes.let {
+
+                    if(it.isNotEmpty()){
+                        mBinding.rvDishesList.visibility=View.VISIBLE
+                        mBinding.tvNoDishesAddedYet.visibility=View.GONE
+
+                        mFavDishAdapter.dishesList(it)
+                    }else{
+                        mBinding.rvDishesList.visibility=View.GONE
+                        mBinding.tvNoDishesAddedYet.visibility=View.VISIBLE
+                    }
+                }
+
+            }
+        }else{
+            mFavDishViewModel.getFilteredList(filterItemSelection).observe(viewLifecycleOwner){
+                dishes->
+                dishes.let {
+                    if(it.isNotEmpty()){
+                        mBinding.rvDishesList.visibility=View.VISIBLE
+                        mBinding.tvNoDishesAddedYet.visibility=View.GONE
+
+                        mFavDishAdapter.dishesList(it)
+
+                    }
+                    else{
+                        mBinding.rvDishesList.visibility=View.GONE
+                        mBinding.tvNoDishesAddedYet.visibility=View.VISIBLE
+                    }
+
+                }
+            }
+        }
 
     }
 }
