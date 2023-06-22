@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.ClipData.Item
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import pro.shivanshtariyal.recipeapp.databinding.ItemCustomListBinding
 import pro.shivanshtariyal.recipeapp.view.activities.AddUpdateDishActivity
+import pro.shivanshtariyal.recipeapp.view.fragments.AllDishesFragment
 
 class CustomListAdapter(
     private val activity: Activity,
+    private val fragment: Fragment?,
     private val listItems:List<String>,
     private val selection:String
 ):RecyclerView.Adapter<CustomListAdapter.ViewHolder>() {
@@ -31,6 +34,9 @@ class CustomListAdapter(
         holder.itemView.setOnClickListener{
             if(activity is AddUpdateDishActivity){
                 activity.selectedItem(item,selection)
+            }
+            if(fragment is AllDishesFragment){
+                fragment.filterSelection(item)
             }
         }
 
