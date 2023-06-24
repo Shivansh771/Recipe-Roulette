@@ -160,7 +160,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
                             favoriteDish=it.favoriteDish
                         }
                     }
-                        val favDishDetails: FavDish =FavDish(
+                        val favDishDetails=FavDish(
                             mImagePath,
                             imageSource,
                             title,
