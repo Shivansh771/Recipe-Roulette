@@ -182,6 +182,18 @@ class RandomDishFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }else{
+                    var instructions=""
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        instructions = Html.fromHtml(
+                            recipe.instructions,
+                            Html.FROM_HTML_MODE_COMPACT
+                        ).toString()
+                    } else {
+                        @Suppress("DEPRECATION")
+                        instructions= Html.fromHtml(recipe.instructions).toString()
+                    }
+
+
 
                val randomDishDetails=FavDish(
                    recipe.image,
@@ -191,7 +203,7 @@ class RandomDishFragment : Fragment() {
                    "Others",
                    ingredients,
                    recipe.readyInMinutes.toString(),
-                   recipe.instructions,
+                   instructions,
                    true
                )
                 val mFavDishViewModel:FavDishViewModel by viewModels {
