@@ -20,7 +20,7 @@ const val ALL_ITEMS:String="All"
 
     const val API_KEY_VALUE:String="d25d01fa39c945fd8eb47516ddd8ffce"
     const val LIMIT_LICENSE_VALUE:Boolean=true
-    const val TAGS_VALUE:String="vegetarian"
+    const val TAGS_VALUE:String=""
     const val NUMBER_VALUE:Int=1
     fun dishTypes(): ArrayList<String> {
         val list = ArrayList<String>()
@@ -82,6 +82,37 @@ const val ALL_ITEMS:String="All"
         list.add("180")
         return list
     }
+
+    fun ingridents():ArrayList<String>{
+        val list=ArrayList<String>()
+        list.add("flour")
+        list.add("sugar")
+        list.add("vinegar")
+        list.add("honey")
+        list.add("butter")
+        list.add("milk")
+        list.add("eggs")
+        list.add("Cheese")
+        list.add("chicken")
+        list.add("tomato")
+        list.add("rice")
+        list.add("pasta")
+        list.add("potatoes")
+        list.add("onions")
+        list.add("garlic")
+        list.add("carrots")
+        list.add("peppers")
+        list.add("lemons")
+        list.add("almonds")
+        list.add("peanuts")
+        list.add("ketchup")
+        list.add("oats")
+        list.add("raisins")
+        list.add("beans")
+        list.add("lentils")
+        return list
+    }
+
     // END
 }
 

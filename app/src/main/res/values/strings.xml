@@ -50,6 +50,7 @@
     <string name="msg_added_to_facorites">Added to Favorites</string>
     <string name="please_wait">Please Wait</string>
     <string name="action_share">Share</string>
+    <string name="fridge">Fridge to Recipe</string>
 
 
 </resources>
