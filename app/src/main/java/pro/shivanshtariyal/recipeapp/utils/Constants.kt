@@ -92,7 +92,7 @@ const val ALL_ITEMS:String="All"
         list.add("butter")
         list.add("milk")
         list.add("eggs")
-        list.add("Cheese")
+        list.add("cheese")
         list.add("chicken")
         list.add("tomato")
         list.add("rice")
