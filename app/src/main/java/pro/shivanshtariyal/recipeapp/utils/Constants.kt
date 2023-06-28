@@ -10,11 +10,16 @@ const val ALL_ITEMS:String="All"
     const val FILTER_SELECTION:String="FilterSelection"
 
     const val API_ENDPOINT:String="recipes/random"
+
+    const val API_FRIDGE_ENDPOINT:String="recipes/complexSearch"
+
     const val API_KEY:String="apiKey"
     const val LIMIT_LICENSE:String="limitLicense"
     const val TAGS:String="tags"
     const val NUMBER:String="number"
     const val EXTRA_DISH_DETAILS="DishDetails"
+    const val ADD_RECIPE_INFORMATION="addRecipeInformation"
+    const val INCLUDE_INGRIDIENTS="includeIngredients"
 
     const val BASE_URL="https://api.spoonacular.com/"
 
@@ -22,6 +27,8 @@ const val ALL_ITEMS:String="All"
     const val LIMIT_LICENSE_VALUE:Boolean=true
     const val TAGS_VALUE:String=""
     const val NUMBER_VALUE:Int=1
+    const val ADD_RECIPE_INFO_VALUE=true
+
     fun dishTypes(): ArrayList<String> {
         val list = ArrayList<String>()
         list.add("breakfast")

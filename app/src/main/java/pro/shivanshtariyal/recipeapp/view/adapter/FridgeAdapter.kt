@@ -48,4 +48,5 @@ class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Fridg
     }
 
 
+
 }
