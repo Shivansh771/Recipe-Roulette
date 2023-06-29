@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import pro.shivanshtariyal.recipeapp.databinding.FragmentFridgeDishViewBinding
 import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 
@@ -30,8 +29,11 @@ class FridgeDishViewFragment : Fragment() {
         binding=FragmentFridgeDishViewBinding.inflate(layoutInflater,container,false)
 
         return binding.root
-    }
 
+    }
+fun setupINUI(item: Fridge.fridge?){
+
+}
 
 
 }

@@ -122,10 +122,7 @@ class FridgeToRecipeFragment : Fragment() {
         })
     }
 
-    fun retItems():ArrayList<String>{
 
-        return items
-    }
 
 
 

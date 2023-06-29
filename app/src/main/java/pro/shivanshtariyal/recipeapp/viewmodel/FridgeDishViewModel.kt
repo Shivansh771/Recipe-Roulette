@@ -32,6 +32,7 @@ class FridgeDishViewModel:ViewModel() {
                         fridgeDishResponse.value=t
                         fridgeDishLoadingError.value=false
                         Log.e("TAG","${fridgeDishResponse.value}")
+
                     }
 
                     override fun onError(e: Throwable) {
