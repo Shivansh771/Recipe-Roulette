@@ -1,5 +1,6 @@
 package pro.shivanshtariyal.recipeapp.models.network
 
+import android.util.Log
 import io.reactivex.rxjava3.core.Single
 import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 import pro.shivanshtariyal.recipeapp.utils.Constants
@@ -19,15 +20,17 @@ class FridgeAPIService {
         .create(FridgeAPI::class.java)
 
 
-    fun getDish(): Single<Fridge.fridge> {
+    fun getDish(ingredients:ArrayList<String>): Single<Fridge.fridge> {
 
 
-        var ingridients=FridgeToRecipeFragment().returnList()
-        val queryString=ingridients.joinToString(
+
+        Log.e("Items recieved","$ingredients")
+        val queryString=ingredients.joinToString(
             prefix = "",
             separator = ",",
             postfix = "",
             )
+        Log.e("TAG","$queryString")
         return api.getRecipeFromFridge(Constants.API_KEY_VALUE,Constants.LIMIT_LICENSE_VALUE,Constants.NUMBER_VALUE,Constants.ADD_RECIPE_INFO_VALUE,queryString)
     }
 }

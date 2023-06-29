@@ -8,6 +8,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 import pro.shivanshtariyal.recipeapp.models.network.FridgeAPIService
+import pro.shivanshtariyal.recipeapp.view.fragments.FridgeDishViewFragment
 
 class FridgeDishViewModel:ViewModel() {
 
@@ -17,11 +18,13 @@ class FridgeDishViewModel:ViewModel() {
     val loadFridgeDish=MutableLiveData<Boolean>()
     val fridgeDishResponse=MutableLiveData<Fridge.fridge>()
     val fridgeDishLoadingError=MutableLiveData<Boolean>()
-    fun getDishFromAPI(){
+    fun getDishFromAPI(items:ArrayList<String>){
+        Log.e("in view model","$items")
         loadFridgeDish.value=true
 
+
         compositeDisposable.add(
-            fridgeDishAPIService.getDish()
+            fridgeDishAPIService.getDish(items)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<Fridge.fridge>(){
                     override fun onSuccess(t: Fridge.fridge) {

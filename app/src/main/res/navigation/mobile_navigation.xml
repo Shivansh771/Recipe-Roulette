@@ -53,6 +53,8 @@
         android:id="@+id/fridgeDishViewFragment"
         android:name="pro.shivanshtariyal.recipeapp.view.fragments.FridgeDishViewFragment"
         android:label="fragment_fridge_dish_view"
-        tools:layout="@layout/fragment_fridge_dish_view" />
+        tools:layout="@layout/fragment_fridge_dish_view" >
+
+    </fragment>
 
 </navigation>

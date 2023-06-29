@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pro.shivanshtariyal.recipeapp.R
 import pro.shivanshtariyal.recipeapp.databinding.FragmentAllDishesBinding
 import pro.shivanshtariyal.recipeapp.databinding.FragmentFridgeToRecipeBinding
+import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 import pro.shivanshtariyal.recipeapp.view.adapter.FridgeAdapter
 import pro.shivanshtariyal.recipeapp.viewmodel.FridgeDishViewModel
 
@@ -24,7 +26,9 @@ class FridgeToRecipeFragment : Fragment() {
     private lateinit var adapter:FridgeAdapter
     private lateinit var fab:FloatingActionButton
     private var mProgressDialog: Dialog?=null
+    lateinit var retFridge:MutableLiveData<Fridge.fridge>
     private lateinit var ftrVM:FridgeDishViewModel
+    lateinit var items:ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -52,8 +56,9 @@ class FridgeToRecipeFragment : Fragment() {
 
         fab.setOnClickListener{
 
-
-               ftrVM.getDishFromAPI()
+            items= adapter.retList()
+            Log.e("items" ,"$items")
+               ftrVM.getDishFromAPI(items)
             randomDishViewModelObserver()
 
 
@@ -84,7 +89,8 @@ class FridgeToRecipeFragment : Fragment() {
             viewLifecycleOwner
         ) { randomDishResponse ->
             randomDishResponse?.let {
-                Log.i("Random Dish Response", "${ftrVM.fridgeDishResponse}")
+                Log.i("Random Dish Response", "${ftrVM.fridgeDishResponse.value}")
+                retFridge=ftrVM.fridgeDishResponse
 
 
 
@@ -110,10 +116,17 @@ class FridgeToRecipeFragment : Fragment() {
                     hideProgressDialog()
                     findNavController().navigate(R.id.action_fridge_to_fridgeDishViewFragment)
 
+
                 }
             }
         })
     }
+
+    fun retItems():ArrayList<String>{
+
+        return items
+    }
+
 
 
 }
