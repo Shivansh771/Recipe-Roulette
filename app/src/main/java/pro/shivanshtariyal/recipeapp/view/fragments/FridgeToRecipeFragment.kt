@@ -1,5 +1,4 @@
 package pro.shivanshtariyal.recipeapp.view.fragments
-
 import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pro.shivanshtariyal.recipeapp.R
-import pro.shivanshtariyal.recipeapp.databinding.FragmentAllDishesBinding
 import pro.shivanshtariyal.recipeapp.databinding.FragmentFridgeToRecipeBinding
 import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 import pro.shivanshtariyal.recipeapp.view.adapter.FridgeAdapter
@@ -89,8 +87,17 @@ class FridgeToRecipeFragment : Fragment() {
             viewLifecycleOwner
         ) { randomDishResponse ->
             randomDishResponse?.let {
-                Log.i("Random Dish Response", "${ftrVM.fridgeDishResponse.value}")
+                Log.i("Random Dish Response", "${ftrVM.fridgeDishResponse.value?.results}")
                 retFridge=ftrVM.fridgeDishResponse
+
+                findNavController().navigate(R.id.action_fridge_to_fridgeDishViewFragment)
+                Log.e(ftrVM.fridgeDishResponse.value?.results?.get(0)?.title,"title")
+                Log.e("${ftrVM.fridgeDishResponse.value?.results?.get(0)?.cookingMinutes}","Cook")
+
+                var ans=ftrVM.fridgeDishResponse.value?.results
+                var analyzedInstruction= retFridge.value?.results?.get(0)?.analyzedInstructions.toString().replace("Step(step=","").drop(35)
+                Log.e("aaa","$analyzedInstruction")
+                FridgeDishViewFragment().get11(ans,analyzedInstruction,items)
 
 
 
@@ -114,7 +121,8 @@ class FridgeToRecipeFragment : Fragment() {
                     showCustomProgressDialog()
                 }else{
                     hideProgressDialog()
-                    findNavController().navigate(R.id.action_fridge_to_fridgeDishViewFragment)
+
+
 
 
                 }
