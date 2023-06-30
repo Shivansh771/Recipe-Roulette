@@ -55,6 +55,9 @@
         android:label="fragment_fridge_dish_view"
         tools:layout="@layout/fragment_fridge_dish_view" >
 
+        <argument
+            android:name="fridge"
+            app:argType="pro.shivanshtariyal.recipeapp.models.entities.Fridge$Result" />
     </fragment>
 
 </navigation>

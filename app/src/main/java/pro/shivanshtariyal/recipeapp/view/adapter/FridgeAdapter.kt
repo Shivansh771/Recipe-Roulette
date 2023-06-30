@@ -1,6 +1,7 @@
 package pro.shivanshtariyal.recipeapp.view.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -15,12 +16,17 @@ class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Fridg
     class ViewHolder(view: ItemDishLayoutBinding):RecyclerView.ViewHolder(view.root){
         val ivIngridentImage=view.ivDishImage
         val tvtitle=view.tvDishTitle
+        var more=view.ibMore
+
+
 
 
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FridgeAdapter.ViewHolder {
         val binding:ItemDishLayoutBinding=ItemDishLayoutBinding.inflate(
             LayoutInflater.from(fragment.context),parent,false)
+
+
         return FridgeAdapter.ViewHolder(binding)
     }
 
@@ -31,7 +37,9 @@ class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Fridg
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvtitle.text=ingredient[position]
+
         var name=ingredient[position]
+        holder.more.visibility= View.GONE
 
         when(name){
             "flour"->  Glide.with(fragment)

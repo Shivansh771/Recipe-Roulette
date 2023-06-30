@@ -1,20 +1,24 @@
 package pro.shivanshtariyal.recipeapp.models.entities
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 object Fridge {
+    @Parcelize
     data class fridge(
     val number: Int,
     val offset: Int,
     val results: List<Result>,
     val totalResults: Int
-)
-
+):Parcelable
+@Parcelize
 data class Result(
     val aggregateLikes: Int,
     val analyzedInstructions: List<AnalyzedInstruction>,
     val cheap: Boolean,
     val cookingMinutes: Int,
     val creditsText: String,
-    val cuisines: List<Any>,
+    val cuisines: List<String>,
     val dairyFree: Boolean,
     val diets: List<String>,
     val dishTypes: List<String>,
@@ -41,37 +45,31 @@ data class Result(
     val veryHealthy: Boolean,
     val veryPopular: Boolean,
     val weightWatcherSmartPoints: Int
-)
-
+):Parcelable
+@Parcelize
 data class AnalyzedInstruction(
     val name: String,
     val steps: List<Step>
-)
-
+):Parcelable
+@Parcelize
 data class Step(
-    val equipment: List<Equipment>,
-    val ingredients: List<Ingredient>,
-    val length: Length,
-    val number: Int,
-    val step: String
-)
 
+    val step: String
+):Parcelable
+@Parcelize
 data class Equipment(
     val id: Int,
     val image: String,
     val localizedName: String,
     val name: String
-)
-
+):Parcelable
+@Parcelize
 data class Ingredient(
-    val id: Int,
-    val image: String,
-    val localizedName: String,
     val name: String
-)
-
+):Parcelable
+@Parcelize
 data class Length(
     val number: Int,
     val unit: String
-)
+):Parcelable
 }
