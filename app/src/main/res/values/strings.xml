@@ -51,6 +51,7 @@
     <string name="please_wait">Please Wait</string>
     <string name="action_share">Share</string>
     <string name="fridge">Fridge to Recipe</string>
+    <string name="filter">fridge filter</string>
 
 
 </resources>

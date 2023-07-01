@@ -7,6 +7,7 @@ object Constants {
     const val DISH_IMAGE_SOURCE_LOCAL:String="Local"
     const val DISH_IMAGE_SOURCE_ONLINE:String="Online"
 const val ALL_ITEMS:String="All"
+    const val ANY_ITEMS:String="Any"
     const val FILTER_SELECTION:String="FilterSelection"
 
     const val API_ENDPOINT:String="recipes/random"
@@ -40,6 +41,22 @@ const val ALL_ITEMS:String="All"
         list.add("dessert")
         list.add("other")
         return list
+    }
+
+    fun cuisines():ArrayList<String>{
+        val list=ArrayList<String>()
+        list.add("Indian")
+        list.add("Chinese")
+        list.add("Italian")
+        list.add("Korean")
+        list.add("Southern")
+        list.add("Mexican")
+        list.add("Greek")
+        list.add("Japanese")
+        list.add("Mediterranean")
+        list.add("Latin American")
+        return list
+
     }
     // END
 
