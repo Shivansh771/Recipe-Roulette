@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import pro.shivanshtariyal.recipeapp.databinding.ItemCustomListBinding
 import pro.shivanshtariyal.recipeapp.view.activities.AddUpdateDishActivity
 import pro.shivanshtariyal.recipeapp.view.fragments.AllDishesFragment
+import pro.shivanshtariyal.recipeapp.view.fragments.FridgeToRecipeFragment
 
 class CustomListAdapter(
     private val activity: Activity,
@@ -36,6 +37,9 @@ class CustomListAdapter(
                 activity.selectedItem(item,selection)
             }
             if(fragment is AllDishesFragment){
+                fragment.filterSelection(item)
+            }
+            if(fragment is FridgeToRecipeFragment){
                 fragment.filterSelection(item)
             }
         }
