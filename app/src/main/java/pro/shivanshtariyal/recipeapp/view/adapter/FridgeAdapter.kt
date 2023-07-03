@@ -3,12 +3,14 @@ package pro.shivanshtariyal.recipeapp.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pro.shivanshtariyal.recipeapp.R
 import pro.shivanshtariyal.recipeapp.databinding.ItemDishLayoutBinding
 import pro.shivanshtariyal.recipeapp.utils.Constants
+import pro.shivanshtariyal.recipeapp.view.fragments.FridgeToRecipeFragment
 
 class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<FridgeAdapter.ViewHolder>(){
     private var ingredient = Constants.ingridents()
@@ -124,6 +126,7 @@ class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Fridg
 
 
         holder.itemView.setOnClickListener{
+            if(itemSelected.size<4){
             if(!selected){
             holder.itemView.setBackgroundResource(R.drawable.selected_background)
                 selected=true
@@ -135,7 +138,9 @@ class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Fridg
                 selected=false
                 itemSelected.remove(holder.tvtitle.text.toString())
             }
-        }
+        }else{
+
+        }}
 
     }
 

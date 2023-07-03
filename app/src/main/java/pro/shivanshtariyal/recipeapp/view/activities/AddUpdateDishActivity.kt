@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -357,70 +358,129 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener{
         dialog.setContentView(binding.root)
 
         binding.tvCamera.setOnClickListener {
+            if(Build.VERSION.SDK_INT<Build.VERSION_CODES.TIRAMISU) {
+                Dexter.withContext(this@AddUpdateDishActivity)
+                    .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA,
 
-            Dexter.withContext(this@AddUpdateDishActivity)
-                .withPermissions(
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.CAMERA,
+                        )
+                    .withListener(object : MultiplePermissionsListener {
+                        override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
 
-                )
-                .withListener(object : MultiplePermissionsListener {
-                    override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                            report?.let {
+                                // Here after all the permission are granted launch the CAMERA to capture an image.
+                                if (report.areAllPermissionsGranted()) {
 
-                        report?.let {
-                            // Here after all the permission are granted launch the CAMERA to capture an image.
-                            if (report.areAllPermissionsGranted()) {
-
-                                val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                                startActivityForResult(intent, CAMERA)
+                                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                                    startActivityForResult(intent, CAMERA)
+                                }
                             }
                         }
-                    }
 
-                    override fun onPermissionRationaleShouldBeShown(
-                        permissions: MutableList<PermissionRequest>?,
-                        token: PermissionToken?
-                    ) {
-                        showRationalDialogForPermissions()
-                    }
-                }).onSameThread()
-                .check()
+                        override fun onPermissionRationaleShouldBeShown(
+                            permissions: MutableList<PermissionRequest>?,
+                            token: PermissionToken?
+                        ) {
+                            showRationalDialogForPermissions()
+                        }
+                    }).onSameThread()
+                    .check()
+            }else{
+                Dexter.withContext(this@AddUpdateDishActivity)
+                    .withPermissions(
+                        Manifest.permission.READ_MEDIA_IMAGES,
+                        Manifest.permission.CAMERA,
 
+                        )
+                    .withListener(object : MultiplePermissionsListener {
+                        override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+
+                            report?.let {
+                                // Here after all the permission are granted launch the CAMERA to capture an image.
+                                if (report.areAllPermissionsGranted()) {
+
+                                    val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                                    startActivityForResult(intent, CAMERA)
+                                }
+                            }
+                        }
+
+                        override fun onPermissionRationaleShouldBeShown(
+                            permissions: MutableList<PermissionRequest>?,
+                            token: PermissionToken?
+                        ) {
+                            showRationalDialogForPermissions()
+                        }
+                    }).onSameThread()
+                    .check()
+            }
             dialog.dismiss()
         }
 
         binding.tvGallery.setOnClickListener {
+            if(Build.VERSION.SDK_INT<Build.VERSION_CODES.TIRAMISU) {
+                Dexter.withContext(this)
+                    .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .withListener(object : PermissionListener {
+                        override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                            val galleryIntent = Intent(
+                                Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                            )
 
-            Dexter.withContext(this)
-                .withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .withListener(object : PermissionListener {
-                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                        val galleryIntent = Intent(
-                            Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                        )
+                            startActivityForResult(galleryIntent, GALLERY)
+                        }
 
-                        startActivityForResult(galleryIntent, GALLERY)
-                    }
+                        override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                            Toast.makeText(
+                                this@AddUpdateDishActivity,
+                                "You have denied the storage permission to select image.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
-                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                        Toast.makeText(
-                            this@AddUpdateDishActivity,
-                            "You have denied the storage permission to select image.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                        override fun onPermissionRationaleShouldBeShown(
+                            permission: PermissionRequest,
+                            token: PermissionToken
+                        ) {
+                            showRationalDialogForPermissions()
+                        }
+                    })
+                    .onSameThread()
+                    .check()
+            }else{
+                Dexter.withContext(this)
+                    .withPermission(Manifest.permission.READ_MEDIA_IMAGES)
+                    .withListener(object : PermissionListener {
+                        override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                            val galleryIntent = Intent(
+                                Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                            )
 
-                    override fun onPermissionRationaleShouldBeShown(
-                        permission: PermissionRequest,
-                        token: PermissionToken
-                    ) {
-                        showRationalDialogForPermissions()
-                    }
-                })
-                .onSameThread()
-                .check()
+                            startActivityForResult(galleryIntent, GALLERY)
+                        }
 
+                        override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                            Toast.makeText(
+                                this@AddUpdateDishActivity,
+                                "You have denied the storage permission to select image.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                        override fun onPermissionRationaleShouldBeShown(
+                            permission: PermissionRequest,
+                            token: PermissionToken
+                        ) {
+                            showRationalDialogForPermissions()
+                        }
+                    })
+                    .onSameThread()
+                    .check()
+
+            }
             dialog.dismiss()
         }
 

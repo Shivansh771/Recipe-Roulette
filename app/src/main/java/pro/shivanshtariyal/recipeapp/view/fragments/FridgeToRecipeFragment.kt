@@ -28,7 +28,7 @@ class FridgeToRecipeFragment : Fragment() {
     private lateinit var fab:FloatingActionButton
     private var mProgressDialog: Dialog?=null
     private lateinit var mCustomListDialog:Dialog
-
+    var cuisines=""
     lateinit var retFridge:MutableLiveData<Fridge.fridge>
     private lateinit var ftrVM:FridgeDishViewModel
     lateinit var items:ArrayList<String>
@@ -62,7 +62,7 @@ class FridgeToRecipeFragment : Fragment() {
 
             items= adapter.retList()
             Log.e("items" ,"$items")
-               ftrVM.getDishFromAPI(items)
+               ftrVM.getDishFromAPI(items,cuisines)
             randomDishViewModelObserver()
 
 
@@ -83,10 +83,7 @@ class FridgeToRecipeFragment : Fragment() {
             it.dismiss()
         }
     }
-    fun returnList():ArrayList<String>{
-        adapter=FridgeAdapter(this)
-        return adapter.itemSelected
-    }
+
     private fun randomDishViewModelObserver() {
 
         ftrVM.fridgeDishResponse.observe(
@@ -175,6 +172,13 @@ class FridgeToRecipeFragment : Fragment() {
         mCustomListDialog.dismiss()
         Log.i("Filter Selection",filterItemSelection)
         Toast.makeText(requireActivity(),"Selected $filterItemSelection",Toast.LENGTH_SHORT).show()
+        if(filterItemSelection!="Any"){
+            cuisines=filterItemSelection
+        }
+
+    }
+    fun rateLimit(){
+        Toast.makeText(requireActivity(),"You can't select more than 4 items",Toast.LENGTH_SHORT).show()
 
     }
 
