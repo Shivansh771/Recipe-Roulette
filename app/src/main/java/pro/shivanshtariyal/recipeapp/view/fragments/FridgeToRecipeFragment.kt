@@ -1,11 +1,13 @@
 package pro.shivanshtariyal.recipeapp.view.fragments
 import android.app.Dialog
 import android.os.Bundle
+import android.system.Os.remove
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -79,28 +81,26 @@ class FridgeToRecipeFragment : Fragment() {
         }
     }
     private fun hideProgressDialog(){
-        mProgressDialog?.let {
-            it.dismiss()
-        }
+        mProgressDialog?.dismiss()
     }
 
     private fun randomDishViewModelObserver() {
-
         ftrVM.fridgeDishResponse.observe(
             viewLifecycleOwner
         ) { randomDishResponse ->
             randomDishResponse?.let {
                 Log.i("Random Dish Response", "${ftrVM.fridgeDishResponse.value?.results}")
                 retFridge=ftrVM.fridgeDishResponse
-
                 findNavController().navigate(R.id.action_fridge_to_fridgeDishViewFragment)
                 Log.e(ftrVM.fridgeDishResponse.value?.results?.get(0)?.title,"title")
                 Log.e("${ftrVM.fridgeDishResponse.value?.results?.get(0)?.cookingMinutes}","Cook")
 
-                var ans=ftrVM.fridgeDishResponse.value?.results
-                var analyzedInstruction= retFridge.value?.results?.get(0)?.analyzedInstructions.toString().replace("Step(step=","").drop(35)
-                Log.e("aaa","$analyzedInstruction")
+                val ans=ftrVM.fridgeDishResponse.value?.results
+                val analyzedInstruction= retFridge.value?.results?.get(0)?.analyzedInstructions.toString().replace("Step(step=","").drop(35)
+                Log.e("aaa", analyzedInstruction)
                 FridgeDishViewFragment().get11(ans,analyzedInstruction,items)
+
+
 
 
 
@@ -134,6 +134,7 @@ class FridgeToRecipeFragment : Fragment() {
     }
 
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.fridge_menu,menu)
 
@@ -142,6 +143,7 @@ class FridgeToRecipeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
@@ -175,10 +177,6 @@ class FridgeToRecipeFragment : Fragment() {
         if(filterItemSelection!="Any"){
             cuisines=filterItemSelection
         }
-
-    }
-    fun rateLimit(){
-        Toast.makeText(requireActivity(),"You can't select more than 4 items",Toast.LENGTH_SHORT).show()
 
     }
 
