@@ -14,7 +14,8 @@ interface FridgeAPI {
         @Query(Constants.LIMIT_LICENSE) limitLicense:Boolean,
         @Query(Constants.NUMBER) number: Int,
         @Query(Constants.ADD_RECIPE_INFORMATION) add:Boolean,
-        @Query(Constants.INCLUDE_INGRIDIENTS) include:String
+        @Query(Constants.INCLUDE_INGRIDIENTS) include:String,
+        @Query(Constants.CUISINE) cuisine: String
 
 
     ): Single<Fridge.fridge>
