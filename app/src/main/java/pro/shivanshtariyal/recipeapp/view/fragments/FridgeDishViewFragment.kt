@@ -20,13 +20,14 @@ import pro.shivanshtariyal.recipeapp.databinding.FragmentFridgeDishViewBinding
 import pro.shivanshtariyal.recipeapp.models.entities.FavDish
 import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 import pro.shivanshtariyal.recipeapp.utils.Constants
+import pro.shivanshtariyal.recipeapp.utils.OnBackPressedListener
 import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModel
 import pro.shivanshtariyal.recipeapp.viewmodel.FavDishViewModelFactory
 
 private  var  res: List<Fridge.Result>?=null
 private lateinit var DirectionsToCook: String
 private lateinit var items:String
-class FridgeDishViewFragment : Fragment() {
+class FridgeDishViewFragment : Fragment() ,OnBackPressedListener{
 
     private lateinit var binding:FragmentFridgeDishViewBinding
 
@@ -63,7 +64,6 @@ class FridgeDishViewFragment : Fragment() {
             binding!!.tvType.text = dishType
         }
         binding!!.tvCategory.text = "Other"
-        var ingredient=res?.get(0)!!.analyzedInstructions[0].toString()
         binding!!.tvIngredients.text= items
         var n= DirectionsToCook.length
         var ddc=DirectionsToCook.substring(0,n-5)
@@ -146,6 +146,16 @@ fun get11(item: List<Fridge.Result>?,an:String,li:List<String>){
     items= li.toString().drop(1).dropLast(1)
 
 }
+
+    override fun onBackPressed() {
+
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.beginTransaction().remove(this).commit()
+
+    }
+
+
+
 }
 
 

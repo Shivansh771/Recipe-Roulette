@@ -126,19 +126,20 @@ class FridgeAdapter(private val fragment: Fragment) : RecyclerView.Adapter<Fridg
 
 
         holder.itemView.setOnClickListener{
-            if(itemSelected.size<4){
-            if(!selected){
-            holder.itemView.setBackgroundResource(R.drawable.selected_background)
-                selected=true
+            if(itemSelected.size<4 && !selected) {
+
+                holder.itemView.setBackgroundResource(R.drawable.selected_background)
+                selected = true
                 itemSelected.add(holder.tvtitle.text.toString())
-
-
-        }else{
-            holder.itemView.setBackgroundResource(R.drawable.unselected_background)
+            }
+        else if(itemSelected.size<=4 && selected){
+                holder.itemView.setBackgroundResource(R.drawable.unselected_background)
                 selected=false
                 itemSelected.remove(holder.tvtitle.text.toString())
+            } else{
+            holder.itemView.setOnClickListener {
+                Toast.makeText(it.context,"You can only select 4 items",Toast.LENGTH_SHORT).show()
             }
-        }else{
 
         }}
 
