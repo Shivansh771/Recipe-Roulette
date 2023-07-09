@@ -40,7 +40,9 @@ class CustomListAdapter(
                 fragment.filterSelection(item)
             }
             if(fragment is FridgeToRecipeFragment){
+
                 fragment.filterSelection(item)
+                fragment.dietSelction(item)
             }
         }
 

@@ -32,6 +32,7 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
     private var mProgressDialog: Dialog?=null
     private lateinit var mCustomListDialog:Dialog
     var cuisines=""
+    var diet=""
     lateinit var retFridge:MutableLiveData<Fridge.fridge>
     private lateinit var ftrVM:FridgeDishViewModel
     lateinit var items:ArrayList<String>
@@ -65,7 +66,7 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
 
             items= adapter.retList()
             Log.e("items" ,"$items")
-               ftrVM.getDishFromAPI(items,cuisines)
+               ftrVM.getDishFromAPI(items,cuisines,diet)
             randomDishViewModelObserver()
 
 
@@ -153,7 +154,7 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
                 return true
             }
             R.id.diet->{
-                DietDishDialog()
+                dietDishDialog()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -172,7 +173,7 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
         binding.rvList.adapter=adapter
         mCustomListDialog.show()
     }
-    private fun DietDishDialog(){
+    private fun dietDishDialog(){
         mCustomListDialog=Dialog(requireActivity())
         val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
 
@@ -192,11 +193,28 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
         mCustomListDialog.dismiss()
         Log.i("Filter Selection",filterItemSelection)
         Toast.makeText(requireActivity(),"Selected $filterItemSelection",Toast.LENGTH_SHORT).show()
-        if(filterItemSelection!="Any"){
+        if(filterItemSelection!="Any" && filterItemSelection in Constants.cuisines()){
+
             cuisines=filterItemSelection
+            Log.i("Cuisine",cuisines)
+            Log.i("diet",diet)
         }
 
     }
+    fun dietSelction(filterItemSelection:String){
+        mCustomListDialog.dismiss()
+        Log.i("Filter Selection",filterItemSelection)
+        Toast.makeText(requireActivity(),"Selected $filterItemSelection",Toast.LENGTH_SHORT).show()
+        if(filterItemSelection!="Any" && filterItemSelection in Constants.diet()){
+
+            diet=filterItemSelection
+            Log.i("Cuisine",cuisines)
+            Log.i("Diet",diet)
+
+        }
+
+    }
+
 
     override fun onBackPressed() {
         val fragmentManager = requireActivity().supportFragmentManager

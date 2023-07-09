@@ -20,7 +20,7 @@ class FridgeAPIService {
         .create(FridgeAPI::class.java)
 
 
-    fun getDish(ingredients:ArrayList<String>,cuisines:String): Single<Fridge.fridge> {
+    fun getDish(ingredients:ArrayList<String>,cuisines:String,diet:String): Single<Fridge.fridge> {
 
 
 
@@ -31,6 +31,6 @@ class FridgeAPIService {
             postfix = "",
             )
         Log.e("TAG","$queryString")
-        return api.getRecipeFromFridge(Constants.API_KEY_VALUE,Constants.LIMIT_LICENSE_VALUE,Constants.NUMBER_VALUE,Constants.ADD_RECIPE_INFO_VALUE,queryString,cuisines)
+        return api.getRecipeFromFridge(Constants.API_KEY_VALUE,Constants.LIMIT_LICENSE_VALUE,Constants.NUMBER_VALUE,Constants.ADD_RECIPE_INFO_VALUE,queryString,cuisines,diet)
     }
 }
