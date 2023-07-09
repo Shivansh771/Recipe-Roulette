@@ -20,11 +20,12 @@ import pro.shivanshtariyal.recipeapp.databinding.DialogCustomListBinding
 import pro.shivanshtariyal.recipeapp.databinding.FragmentFridgeToRecipeBinding
 import pro.shivanshtariyal.recipeapp.models.entities.Fridge
 import pro.shivanshtariyal.recipeapp.utils.Constants
+import pro.shivanshtariyal.recipeapp.utils.OnBackPressedListener
 import pro.shivanshtariyal.recipeapp.view.adapter.CustomListAdapter
 import pro.shivanshtariyal.recipeapp.view.adapter.FridgeAdapter
 import pro.shivanshtariyal.recipeapp.viewmodel.FridgeDishViewModel
 
-class FridgeToRecipeFragment : Fragment() {
+class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
     private lateinit var binding:FragmentFridgeToRecipeBinding
     private lateinit var adapter:FridgeAdapter
     private lateinit var fab:FloatingActionButton
@@ -151,6 +152,9 @@ class FridgeToRecipeFragment : Fragment() {
                 filterDishesListDialog()
                 return true
             }
+            R.id.diet->{
+                DietDishDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -159,12 +163,26 @@ class FridgeToRecipeFragment : Fragment() {
         val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
 
         mCustomListDialog.setContentView(binding.root)
-        binding.tvTitle.text=resources.getString(R.string.title_select_item_to_filter)
+        binding.tvTitle.text=resources.getString(R.string.Cuisines)
         val dishTypes= Constants.cuisines()
         dishTypes.add(0, Constants.ANY_ITEMS)
         binding.rvList.layoutManager= LinearLayoutManager(requireActivity())
         val adapter=
             CustomListAdapter(requireActivity(),this@FridgeToRecipeFragment,dishTypes, Constants.FILTER_SELECTION)
+        binding.rvList.adapter=adapter
+        mCustomListDialog.show()
+    }
+    private fun DietDishDialog(){
+        mCustomListDialog=Dialog(requireActivity())
+        val binding: DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+
+        mCustomListDialog.setContentView(binding.root)
+        binding.tvTitle.text=resources.getString(R.string.diet)
+        val diet= Constants.diet()
+        diet.add(0, Constants.ANY_ITEMS)
+        binding.rvList.layoutManager= LinearLayoutManager(requireActivity())
+        val adapter=
+            CustomListAdapter(requireActivity(),this@FridgeToRecipeFragment,diet, Constants.FILTER_SELECTION)
         binding.rvList.adapter=adapter
         mCustomListDialog.show()
     }
@@ -178,6 +196,11 @@ class FridgeToRecipeFragment : Fragment() {
             cuisines=filterItemSelection
         }
 
+    }
+
+    override fun onBackPressed() {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.beginTransaction().remove(this).commit()
     }
 
 }

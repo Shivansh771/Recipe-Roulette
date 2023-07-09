@@ -43,7 +43,21 @@ const val ALL_ITEMS:String="All"
         list.add("other")
         return list
     }
+    fun diet():ArrayList<String>{
+        val list=ArrayList<String>()
+        list.add("Vegetarian")
+        list.add("Lacto-Vegetarian")
+        list.add("Ovo-Vegetarian")
+        list.add("Ketogenic")
+        list.add("Vegan")
+        list.add("Pescetarian")
+        list.add("Paleo")
+        list.add("Low FODMAP")
+        list.add("Whole30")
+        list.add("Gluten Free")
+        return list
 
+    }
     fun cuisines():ArrayList<String>{
         val list=ArrayList<String>()
         list.add("Indian")
