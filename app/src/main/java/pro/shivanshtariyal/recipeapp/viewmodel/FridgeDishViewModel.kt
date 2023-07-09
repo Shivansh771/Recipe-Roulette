@@ -19,12 +19,12 @@ class FridgeDishViewModel:ViewModel() {
     val loadFridgeDish=MutableLiveData<Boolean>()
     val fridgeDishResponse=MutableLiveData<Fridge.fridge>()
     val fridgeDishLoadingError=MutableLiveData<Boolean>()
-    fun getDishFromAPI(items:ArrayList<String>,cuisines:String){
+    fun getDishFromAPI(items:ArrayList<String>,cuisines:String,diet:String){
         Log.e("in view model","$items")
         loadFridgeDish.value=true
         try {
                 compositeDisposable.add(
-                    fridgeDishAPIService.getDish(items, cuisines)
+                    fridgeDishAPIService.getDish(items, cuisines,diet)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(object : DisposableSingleObserver<Fridge.fridge>() {
                             override fun onSuccess(t: Fridge.fridge) {

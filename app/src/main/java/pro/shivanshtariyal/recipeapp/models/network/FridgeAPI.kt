@@ -15,9 +15,8 @@ interface FridgeAPI {
         @Query(Constants.NUMBER) number: Int,
         @Query(Constants.ADD_RECIPE_INFORMATION) add:Boolean,
         @Query(Constants.INCLUDE_INGRIDIENTS) include:String,
-        @Query(Constants.CUISINE) cuisine: String
-
-
+        @Query(Constants.CUISINE) cuisine: String,
+        @Query(Constants.DIET) diet:String
     ): Single<Fridge.fridge>
 
 }

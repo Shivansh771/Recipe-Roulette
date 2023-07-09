@@ -9,6 +9,7 @@ object Constants {
 const val ALL_ITEMS:String="All"
     const val ANY_ITEMS:String="Any"
     const val FILTER_SELECTION:String="FilterSelection"
+    const val DIET:String="diet"
     const val CUISINE:String="cuisine"
 
     const val API_ENDPOINT:String="recipes/random"
