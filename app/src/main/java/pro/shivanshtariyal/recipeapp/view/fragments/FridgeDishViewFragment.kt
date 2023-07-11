@@ -148,10 +148,15 @@ fun get11(item: List<Fridge.Result>?,an:String,li:List<String>){
 }
 
     override fun onBackPressed() {
+        DirectionsToCook=""
+        items=""
 
         val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.beginTransaction().remove(this).commit()
+        val currentFragment = fragmentManager.findFragmentById(R.id.fridgeDishViewFragment)
 
+        if (currentFragment == this) {
+            fragmentManager.beginTransaction().remove(this).commit()
+        }
     }
 
 

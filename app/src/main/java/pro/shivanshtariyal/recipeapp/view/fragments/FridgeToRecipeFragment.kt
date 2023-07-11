@@ -53,6 +53,7 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvDishesList.layoutManager=GridLayoutManager(requireActivity(),2)
@@ -218,7 +219,11 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
 
     override fun onBackPressed() {
         val fragmentManager = requireActivity().supportFragmentManager
-        fragmentManager.beginTransaction().remove(this).commit()
+        val currentFragment = fragmentManager.findFragmentById(R.id.fridgeDishViewFragment)
+
+        if (currentFragment == this) {
+            fragmentManager.beginTransaction().remove(this).commit()
+        }
     }
 
 }
