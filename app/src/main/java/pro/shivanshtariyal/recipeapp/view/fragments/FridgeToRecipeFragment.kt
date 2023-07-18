@@ -83,7 +83,7 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
             it.show()
         }
     }
-    private fun hideProgressDialog(){
+    fun hideProgressDialog(){
         mProgressDialog?.dismiss()
     }
 
@@ -127,6 +127,8 @@ class FridgeToRecipeFragment : Fragment(),OnBackPressedListener {
                     showCustomProgressDialog()
                 }else{
                     hideProgressDialog()
+
+
 
 
 

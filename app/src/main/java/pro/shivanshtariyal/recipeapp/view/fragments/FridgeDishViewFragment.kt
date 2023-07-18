@@ -139,6 +139,7 @@ class FridgeDishViewFragment : Fragment() ,OnBackPressedListener{
 
 
 fun get11(item: List<Fridge.Result>?,an:String,li:List<String>){
+    FridgeToRecipeFragment().hideProgressDialog()
     Log.e("90","$item")
     res=item
     DirectionsToCook=an
@@ -153,10 +154,11 @@ fun get11(item: List<Fridge.Result>?,an:String,li:List<String>){
 
         val fragmentManager = requireActivity().supportFragmentManager
         val currentFragment = fragmentManager.findFragmentById(R.id.fridgeDishViewFragment)
-
+        fragmentManager.popBackStack()
         if (currentFragment == this) {
             fragmentManager.beginTransaction().remove(this).commit()
         }
+
     }
 
 
