@@ -26,8 +26,8 @@ A Recipe app build using MVVM architecture and jetpack(Room, WorkManager, Lifecy
 
 
 
-![image](https://github.com/Shivansh771/Recipe-Roulette/assets/76002564/7b398bcc-d5a1-4726-839e-d545c5b39e23)
-![image](https://github.com/Shivansh771/Recipe-Roulette/assets/76002564/cb8f3dad-1767-4b93-953c-36dbd6eec19c)
+![image](https://github.com/Shivansh771/Recipe-Roulette/assets/76002564/6dbad8c2-8a0b-4f20-aff4-02f487976598)
+![image](https://github.com/Shivansh771/Recipe-Roulette/assets/76002564/411f760c-eb8c-4b6f-a997-b6d17147fc59)
 ![image](https://github.com/Shivansh771/Recipe-Roulette/assets/76002564/6ea8c650-4a18-4e90-b9c5-91a64fc7767d)
 
 
