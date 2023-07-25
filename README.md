@@ -22,7 +22,7 @@ A Recipe app build using MVVM architecture and jetpack(Room, WorkManager, Lifecy
 ![image](https://github.com/Shivansh771/Recipe-Roulette/assets/76002564/962d8fbd-2d39-43ac-a884-45a3a75b992b)
 
 
-<h2>Get recipes based on the items in your fridge</h2>
+<h2>Get recipes based on the items in your fridge, your diet preferences and your favourite cuisine</h2>
 
 
 
