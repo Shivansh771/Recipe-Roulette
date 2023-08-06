@@ -4,7 +4,7 @@ A Recipe app build using MVVM architecture and jetpack(Room, WorkManager, Lifecy
 [Try it out](https://github.com/Shivansh771/RecipeApp/blob/main/Recipe%20Roulette.apk) (Download and install the APK)
 
 
-
+<h1>Features</h1>
 
 <h2>Save your recipes</h2>
 
